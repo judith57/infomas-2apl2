@@ -1,0 +1,5 @@
+<apaplmas>
+  <agent name="barry" file="barry.2apl"/>
+  <agent name="tim" file="tim.2apl"/>
+  <agent name="sally" file="sally.2apl"/>
+</apaplmas>
