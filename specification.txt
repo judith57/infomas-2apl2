@@ -1,0 +1,6 @@
+Task announcement:
+The manager sends a request message to every contractor: send(Reciever, announce, Content).
+The Content of the message is the name of the component that the manager needs.
+
+Bid:
+When a contrator recieves the announce message, it checks whether it has the requested hardware available. If it does, it replies with the price of the component: send(Reciever, bid, Content). Otherwise, the Content of the message will be "unavailable".
