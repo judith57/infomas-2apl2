@@ -1,3 +1,5 @@
+beliefs:
+
 % components1.pl
 
 % This file contains (part of) a description of computer hardware components, 
@@ -209,3 +211,5 @@ graphic_card('3dlabs',
 'Multi-monitor Graphics Card',
 has_processor('3Dlabs Glint R3 graphic processor'),
 645).
+
+include: contractor.pl;

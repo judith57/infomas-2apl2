@@ -1,5 +1,6 @@
 <apaplmas>
-  <agent name="barry" file="barry.2apl"/>
-  <agent name="tim" file="tim.2apl"/>
-  <agent name="sally" file="sally.2apl"/>
+  <agent name="Bol" file="components1.pl"/>
+  <agent name="Amazon" file="components2.pl"/>
+  <agent name="Dumpster Next Door" file="components3.pl"/>
+  <agent name="Manager" file="man.pl"/>
 </apaplmas>
