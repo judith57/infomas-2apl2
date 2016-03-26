@@ -1,3 +1,5 @@
+beliefs:
+  agts(["Bol", "Amazon", "Dumpsterdiver"]).
 
 beliefupdates:
 

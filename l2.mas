@@ -1,6 +1,9 @@
 <apaplmas>
-  <agent name="Bol" file="components1.pl"/>
-  <agent name="Amazon" file="components2.pl"/>
-  <agent name="Dumpster Next Door" file="components3.pl"/>
-  <agent name="Manager" file="man.pl"/>
+  <agent name="Bol" file="contractor.2apl"/>
+    <beliefs file="components1.pl" shadow="false"/>
+  <agent name="Amazon" file="contractor.2apl"/>
+    <beliefs file="components2.pl" shadow="false"/>
+  <agent name="Dumpsterdiver" file="contractor.2apl"/>
+    <beliefs file="components3.pl" shadow="false"/>
+  <agent name="Manager" file="man.2apl"/>
 </apaplmas>

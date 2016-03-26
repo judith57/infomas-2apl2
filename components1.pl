@@ -1,5 +1,3 @@
-beliefs:
-
 % components1.pl
 
 % This file contains (part of) a description of computer hardware components, 
