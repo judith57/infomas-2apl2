@@ -22,7 +22,7 @@ pcrules:
       % Got motherboard in stock
       send(N, inform, got(X,P));
     }
-    else if B(graphic_card(_,X,_,P)){
+    else if B(graphic_card(_,X,_,_,P)){
       % Got GFX in stock
       send(N, inform, got(X,P));
     }
