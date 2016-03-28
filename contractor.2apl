@@ -7,5 +7,25 @@ goals:
 pgrules:
 
 pcrules:
+  % Part request message handler
+  message(N, request, La, On, need(X)) <- true |
+  {
+    if B(pc_case(_,X,_,_,_,_,_,P)){
+      % Got chassis in stock
+      send(N, inform, got(X,P));
+    }
+    else if B(processor(_,X,_,_,_,P)){
+      % Got processor in stock
+      send(N, inform, got(X,P));
+    }
+    else if B(motherboard(_,X,_,_,_,_,P)){
+      % Got motherboard in stock
+      send(N, inform, got(X,P));
+    }
+    else if B(graphic_card(_,X,_,P)){
+      % Got GFX in stock
+      send(N, inform, got(X,P));
+    }
+  }
 
 prrules:
