@@ -15,6 +15,7 @@ pgrules:
   % If there is a PC needed, add part-needs
   acquirePC(N) <- needPC(N,C,M,P,G) |
   {
+    % Broadcast cycle
     if B(not gotC(C)){
       % Broadcast chassis request
       B(contractors(CONTS));
@@ -35,6 +36,24 @@ pgrules:
       B(contractors(CONTS));
       broadcast(CONTS, G);
     }
+    
+    % Computation cycle
+    if B(not gotC(C)){
+      % Compute best chassis offer
+      getBest(C);
+    }
+    if B(not gotM(M)){
+      % Compute best motherboard offer
+      getBest(M);
+    }
+    if B(not gotP(P)){
+      % Compute best processor offer
+      getBest(P);
+    }
+    if B(not gotG(G)){
+      % Compute best GFX offer
+      getBest(G);
+    }
   }
 
 pcrules:
@@ -48,5 +67,33 @@ pcrules:
     }
   }
   
+  % Handle incoming price information
+  message(N, inform, La, On, got(X,P)) <- true |
+  {
+    +offer(X,N,P);
+  }
+
+  % Compute best offer
+  % Takes item to compare offers on
+  getBest(X) <- true |
+  {
+    if B(offer(X,N,P)) {
+      if B(bestOffer(X,BN,BP)){
+        if(P < BP){
+          -bestOffer(X,BN,BP);
+          +bestOffer(X,N,P);
+          -offer(X,N,P);
+        }
+        else{
+          -offer(X,N,P);
+        }
+      }
+      else{
+        +bestOffer(X,N,P);
+        -offer(X,N,P);
+      }
+      getBest(X);
+    }
+  }
 
 prrules:
