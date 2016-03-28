@@ -1,12 +1,52 @@
 beliefs:
-  agts(["Bol", "Amazon", "Dumpsterdiver"]).
+  acquirePC(N) :- not needPC(N,C,M,P,G).
+  contractors([bol, amazon, dumpsterdiver]).
+  needPC(1,'Antec Performance II SX630II', 'Asustek A7N8X Deluxe Motherboard',
+  'Intel Pentium III', 'ATI RADEON 7000 Graphics card').
 
 beliefupdates:
 
 goals:
+  acquirePC(1).
+
+plans:
 
 pgrules:
+  % If there is a PC needed, add part-needs
+  acquirePC(N) <- needPC(N,C,M,P,G) |
+  {
+    if B(not gotC(C)){
+      % Broadcast chassis request
+      B(contractors(CONTS));
+      broadcast(CONTS, C);
+    }
+    if B(not gotM(M)){
+      % Broadcast motherboard request
+      B(contractors(CONTS));
+      broadcast(CONTS, M);
+    }
+    if B(not gotP(P)){
+      % Broadcast processor request
+      B(contractors(CONTS));
+      broadcast(CONTS, P);
+    }
+    if B(not gotG(G)){
+      % Broadcast GFX request
+      B(contractors(CONTS));
+      broadcast(CONTS, G);
+    }
+  }
 
 pcrules:
+  % Broadcast component request to all contractors
+  % Takes list of contractors and item needed
+  broadcast(CONTS, ITEM) <- true |
+  {
+    if B( CONTS = [NAME|REST] ){
+      send(NAME, request, need(ITEM));
+      broadcast(REST, ITEM);
+    }
+  }
+  
 
 prrules:
