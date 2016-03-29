@@ -1,6 +1,16 @@
 Task announcement:
-The manager sends a request message to every contractor: send(Reciever, announce, Content).
-The Content of the message is the name of the component that the manager needs.
+The manager sends a request message to every contractor: 
+send(Receiver, request, need(ITEM)).
+ITEM is the name of the component that the manager needs.
 
 Bid:
-When a contrator recieves the announce message, it checks whether it has the requested hardware available. If it does, it replies with the price of the component: send(Reciever, bid, Content). Otherwise, the Content of the message will be "unavailable".
+When a contrator recieves the announce message, it checks whether it has the requested hardware available and replies:
+send(Receiver, inform, Content). 
+If the contractor has the requested hardware available, Content is the got(X, P), where X is the name of the component and P is the price. Otherwise, the Content of the message will be unavailable(X).
+
+Award:
+When every contractor has replied, the manager chooses the best bid and replies to that contractor:
+send(Receiver, inform, award(X)).
+To the other contractors, it replies:
+send(Receiver, inform, cancel(X)).
+In both cases, X is the name of the component.
