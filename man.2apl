@@ -1,5 +1,5 @@
 beliefs:
-  acquirePC(N) :- not needPC(N,C,M,P,G).
+  acquirePC(pc) :- not needPC(N,C,M,P,G).
   contractors([bol, amazon, dumpsterdiver]).
   needPC(1,'Antec Performance II SX630II', 'Asustek A7N8X Deluxe Motherboard',
   'Intel Pentium III', 'ATI RADEON 7000 Graphics card').
@@ -7,13 +7,13 @@ beliefs:
 beliefupdates:
 
 goals:
-  acquirePC(1).
+  acquirePC(pc).
 
 plans:
 
 pgrules:
   % If there is a PC needed, add part-needs
-  acquirePC(N) <- needPC(N,C,M,P,G) |
+  acquirePC(pc) <- needPC(N,C,M,P,G) |
   {
     % Broadcast cycle
     if B(not gotC(C)){
