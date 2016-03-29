@@ -1,6 +1,7 @@
 beliefs:
   acquirePC(pc) :- not needPC(N,C,M,P,G).
   contractors([bol, amazon, dumpsterdiver]).
+  numContractors(3).
   needPC(1,'Antec Performance II SX630II', 'Asustek A7N8X Deluxe Motherboard',
   'Intel Pentium III', 'ATI RADEON 7000 Graphics card').
 
@@ -18,40 +19,49 @@ pgrules:
     % Broadcast cycle
     if B(not gotC(C)){
       % Broadcast chassis request
+      +tick(C, 0);
       B(contractors(CONTS));
       broadcast(CONTS, C);
     }
     if B(not gotM(M)){
       % Broadcast motherboard request
+      +tick(M, 0);
       B(contractors(CONTS));
       broadcast(CONTS, M);
     }
     if B(not gotP(P)){
       % Broadcast processor request
+      +tick(P, 0);
       B(contractors(CONTS));
       broadcast(CONTS, P);
     }
     if B(not gotG(G)){
       % Broadcast GFX request
+      +tick(G, 0);
       B(contractors(CONTS));
       broadcast(CONTS, G);
     }
     
     % Computation cycle
-    if B(not gotC(C)){
+    B(numContractors(NUM));
+    if B(tick(C,NUM)){
       % Compute best chassis offer
+      -tick(C,NUM);
       getBest(C);
     }
-    if B(not gotM(M)){
+    if B(tick(M,NUM)){
       % Compute best motherboard offer
+      -tick(M,NUM);
       getBest(M);
     }
-    if B(not gotP(P)){
+    if B(tick(P,NUM)){
       % Compute best processor offer
+      -tick(P,NUM);
       getBest(P);
     }
-    if B(not gotG(G)){
+    if B(tick(G,NUM)){
       % Compute best GFX offer
+      -tick(G,NUM);
       getBest(G);
     }
   }
@@ -70,6 +80,9 @@ pcrules:
   % Handle incoming price information
   message(N, inform, La, On, got(X,P)) <- true |
   {
+    B(tick(X,V));
+    -tick(X,V);
+    +tick(X,V+1);
     +offer(X,N,P);
   }
 
